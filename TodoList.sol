@@ -35,7 +35,7 @@ contract TodoList{
     }
     
     function editName(string memory _name) public {
-        //need to get taskt then change name 
+        //need to get task then change name 
         
     }
     
