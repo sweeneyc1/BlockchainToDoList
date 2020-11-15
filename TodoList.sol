@@ -28,27 +28,27 @@ contract TodoList{
     }
     
     function editName(string memory _name) public {
-        this.name = _name;
+        //need to get taskt then change name 
         
     }
     
     function editDescription(string memory _description) public {
-        this.description = _description;
+        
     }
     
     function editPriority(uint _prio) public {
         if(_prio > 5 ){
             _prio = 5;
         }
-        this.priority = _prio;
+        
     }
     
     function editDueDate(uint _dueDate) public {
-        this.dueDate = _dueDate;
+        
     }
     
     function markDone() public {
-        this.completed = true;
+        
     }
     
     function getTimeLeft(uint _index) public view returns (uint){
