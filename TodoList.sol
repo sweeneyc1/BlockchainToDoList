@@ -10,6 +10,13 @@ contract TodoList{
         bool completed;
     }
     
+    struct timeSys{
+        uint sec;
+        uint min;
+        uint hour;
+        uint day;
+    }
+    
     task[] public generalTasks;
     
     function createTask(string memory _name, string memory _desc, uint _prio, uint _dueDate) public{
