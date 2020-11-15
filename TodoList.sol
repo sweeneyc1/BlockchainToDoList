@@ -54,10 +54,6 @@ contract TodoList{
         
     }
     
-    function markDone() public {
-        
-    }
-    
     function getTimeLeft(uint _index) public view returns (uint){
         return generalTasks[_index].dueDate-block.timestamp;
     }
