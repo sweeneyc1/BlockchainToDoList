@@ -34,24 +34,28 @@ contract TodoList{
         //remove task
     }
     
-    function editName(string memory _name) public {
-        //need to get task then change name 
+    function editName(uint _index, string memory _name) public {
+        task storage t = generalTasks[_index];
+        t.name = _name;
         
     }
     
-    function editDescription(string memory _description) public {
-        
+    function editDescription(uint _index, string memory _description) public {
+        task storage t = generalTasks[_index];
+        t.description = _description;
     }
     
-    function editPriority(uint _prio) public {
+    function editPriority(uint _index, uint _prio) public {
         if(_prio > 5 ){
             _prio = 5;
         }
-        
+        task storage t = generalTasks[_index];
+        t.priority = _prio;
     }
     
-    function editDueDate(uint _dueDate) public {
-        
+    function editDueDate(uint _index, uint _dueDate) public {
+        task storage t = generalTasks[_index];
+        t.dueDate = _dueDate;
     }
     
     function getTimeLeft(uint _index) public view returns (uint){
