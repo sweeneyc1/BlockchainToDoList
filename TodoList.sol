@@ -29,9 +29,8 @@ contract TodoList{
         
     }
     
-    function removeTask(uint _index) public returns(bool){
-        task storage taskToRemove = generalTasks[_index]; 
-        //remove task
+    function removeTask(uint _index) public {
+        delete generalTasks[_index];
     }
     
     function editName(uint _index, string memory _name) public {
