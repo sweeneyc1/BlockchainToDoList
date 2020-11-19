@@ -51,28 +51,14 @@ contract TodoList{
         delete generalTasks[_index];
     }
     
-    function editName(uint _index, string memory _name) public {
+    function editTask(uint _index, string memory _name, string memory _description, uint _prio, uint _dueDate) public {
         task storage t = generalTasks[_index];
-        t.name = _name;
+        // will replace existing if don't want to edit????????
+        name = _name;
+        description = _description;
+        priority = _prio;
+        dueDate = _dueDate;
         
-    }
-    
-    function editDescription(uint _index, string memory _description) public {
-        task storage t = generalTasks[_index];
-        t.description = _description;
-    }
-    
-    function editPriority(uint _index, uint _prio) public {
-        if(_prio > 5 ){
-            _prio = 5;
-        }
-        task storage t = generalTasks[_index];
-        t.priority = _prio;
-    }
-    
-    function editDueDate(uint _index, uint _dueDate) public {
-        task storage t = generalTasks[_index];
-        t.dueDate = _dueDate;
     }
     
     function getTimeLeft(uint _index) public view returns (uint){
