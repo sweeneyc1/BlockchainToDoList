@@ -1,4 +1,5 @@
-pragma solidity >=0.4.22 <0.7.0;
+pragma solidity >=0.4.22 <0.7.4;
+pragma experimental ABIEncoderV2;
 
 contract TodoList{
     
@@ -28,6 +29,23 @@ contract TodoList{
         generalTasks.push(task(_name,_desc,_prio,_dueDate,false));
         
     }
+    
+    // work in progress
+    //function uintToTime(uint _time) public view returns (timeSys memory){
+    //    return(timeSys(_time%60,_time/60%60,_time/3600%24,_time/86400));
+    //}
+    
+    function timeToUint(timeSys memory _time) public view returns (uint){
+        uint x = 0;
+        x = x + _time.sec;
+        x = x + _time.min*60;
+        x = x + _time.hour*3600;
+        x = x + _time.day*86400;
+        return(x);
+    }
+    
+    
+    
     
     function removeTask(uint _index) public {
         delete generalTasks[_index];
