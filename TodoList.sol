@@ -52,13 +52,11 @@ contract TodoList{
     }
     
     function editTask(uint _index, string memory _name, string memory _description, uint _prio, uint _dueDate) public {
-        task storage t = generalTasks[_index];
         // will replace existing if don't want to edit????????
-        name = _name;
-        description = _description;
-        priority = _prio;
-        dueDate = _dueDate;
-        
+        generalTasks[_index].name = _name;
+        generalTasks[_index].description = _description;
+        generalTasks[_index].priority = _prio;
+        generalTasks[_index].dueDate = _dueDate;
     }
     
     function getTimeLeft(uint _index) public view returns (uint){
