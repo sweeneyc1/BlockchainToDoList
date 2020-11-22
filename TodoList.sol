@@ -20,7 +20,10 @@ contract TodoList{
     
     task[] public generalTasks;
     
+    address owner = (msg.sender);
+    
     function createTask(string memory _name, string memory _desc, uint _prio, uint _dueDate) public{
+        require(msg.sender==owner);
         _dueDate = block.timestamp + _dueDate;
         
         if(_prio > 5 ){
@@ -30,44 +33,33 @@ contract TodoList{
         
     }
     
-    // work in progress
-    //function uintToTime(uint _time) public view returns (timeSys memory){
-    //    return(timeSys(_time%60,_time/60%60,_time/3600%24,_time/86400));
-    //}
-    
-    function timeToUint(timeSys memory _time) public view returns (uint){
-        uint x = 0;
-        x = x + _time.sec;
-        x = x + _time.min*60;
-        x = x + _time.hour*3600;
-        x = x + _time.day*86400;
-        return(x);
-    }
-    
-    
-    
-    
     function removeTask(uint _index) public {
+        require(msg.sender==owner);
         delete generalTasks[_index];
     }
     
     function editTask(uint _index, string memory _name, string memory _description, uint _prio, uint _dueDate) public {
         // will replace existing if don't want to edit????????
+        require(msg.sender==owner);
         generalTasks[_index].name = _name;
         generalTasks[_index].description = _description;
         generalTasks[_index].priority = _prio;
         generalTasks[_index].dueDate = _dueDate;
+        
     }
     
     function getTimeLeft(uint _index) public view returns (uint){
-        return generalTasks[_index].dueDate-block.timestamp;
+        require(msg.sender==owner);
+        return (block.timestamp > generalTasks[_index].dueDate ? 0 : generalTasks[_index].dueDate-block.timestamp);
     }
     
     function getCompleted(uint _index) public view returns(bool){
+        require(msg.sender==owner);
         return generalTasks[_index].completed;
     }
     
     function toggleComplete(uint _index) public{
+        require(msg.sender==owner);
         generalTasks[_index].completed=!generalTasks[_index].completed;
     }
     
