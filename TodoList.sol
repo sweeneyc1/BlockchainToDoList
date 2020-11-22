@@ -39,7 +39,6 @@ contract TodoList{
     }
     
     function editTask(uint _index, string memory _name, string memory _description, uint _prio, uint _dueDate) public {
-        // will replace existing if don't want to edit????????
         if(compareStrings(_name, '')){
             generalTasks[_index].name = _name;
         }
@@ -47,9 +46,6 @@ contract TodoList{
             generalTasks[_index].description = _description;
         }
         if(_prio > 0){
-            if(_prio > 5 ){
-                generalTasks[_index].priority = 5;
-            }
             generalTasks[_index].priority = _prio;
         }
         if(_dueDate > 0){
