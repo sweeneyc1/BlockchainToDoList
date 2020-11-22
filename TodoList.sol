@@ -40,12 +40,21 @@ contract TodoList{
     
     function editTask(uint _index, string memory _name, string memory _description, uint _prio, uint _dueDate) public {
         // will replace existing if don't want to edit????????
-        require(msg.sender==owner);
-        generalTasks[_index].name = _name;
-        generalTasks[_index].description = _description;
-        generalTasks[_index].priority = _prio;
-        generalTasks[_index].dueDate = _dueDate;
-        
+        if(compareStrings(_name, '')){
+            generalTasks[_index].name = _name;
+        }
+        if(compareStrings(_description, '')){
+            generalTasks[_index].description = _description;
+        }
+        if(_prio > 0){
+            if(_prio > 5 ){
+                generalTasks[_index].priority = 5;
+            }
+            generalTasks[_index].priority = _prio;
+        }
+        if(_dueDate > 0){
+            generalTasks[_index].dueDate = _dueDate;
+        }
     }
     
     function getTimeLeft(uint _index) public view returns (uint){
@@ -62,5 +71,7 @@ contract TodoList{
         require(msg.sender==owner);
         generalTasks[_index].completed=!generalTasks[_index].completed;
     }
-    
+    function compareStrings(string memory a, string memory b) public pure returns (bool) {
+        return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
+    }
 }
