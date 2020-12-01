@@ -14,8 +14,10 @@ contract TodoList{
     
     task[] public generalTasks;
     
-    constructor() public {
-        
+    constructor(string[] memory _test) public {
+        for(uint x = 0; x < _test.length; x++){
+            generalTasks.push(task(_test[x],"desc",600,false));
+        }
     }
     
     
