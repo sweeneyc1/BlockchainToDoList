@@ -1,7 +1,7 @@
 pragma solidity >=0.4.22 <0.7.4;
 pragma experimental ABIEncoderV2;
 
-contract TodoList{
+contract List{
     
     struct task{
         string name;
