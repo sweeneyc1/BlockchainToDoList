@@ -13,20 +13,24 @@ contract TodoList{
     address owner = (msg.sender);
     
     task[] public generalTasks;
+    //unnecessary:
+    string[] public taskNames;
+    mapping (bytes32 => bool) private tasksCompletedMap;
     
     constructor(string[] memory _test) public {
+        _test = taskNames;
         for(uint x = 0; x < _test.length; x++){
             generalTasks.push(task(_test[x],"desc",600,false));
         }
     }
     
     
-    function createTask(string memory _name, string memory _desc, uint _dueDate) public{
+    function addNewTask(string memory _name, string memory _desc, uint _dueDate) public{
         require(msg.sender==owner);
         _dueDate = block.timestamp + _dueDate;
         
         
-        generalTasks.push(task(_name,_desc,_dueDate,false));
+        generalTasks.push(task(_name,_desc,_dueDate, false));
         
     }
     
@@ -58,5 +62,14 @@ contract TodoList{
         require(msg.sender==owner);
         generalTasks[_index].completed=!generalTasks[_index].completed;
     }
+    function stringToBytes32(string memory source) private pure returns (bytes32 result) {
+        bytes memory tempEmptyStringTest = bytes(source);
+        if (tempEmptyStringTest.length == 0) {
+            return 0x0;
+        }
     
+        assembly {
+            result := mload(add(source, 32))
+        }
+    }
 }
