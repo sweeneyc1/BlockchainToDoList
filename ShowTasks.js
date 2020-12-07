@@ -4,10 +4,8 @@ export class ShowTasks extends Component {
     handleChange = (task) => {
         let _task = task;
         
-        //console.log("Show Tasks: " + task);
-        //where toggle completed
         this.props.toggleComplete(_task);
-        //console.log("toggle complete");
+       
     }
     render() {
         
