@@ -55,7 +55,8 @@ class App extends Component {
           let time = await this.getTaskAsyncTime(task);
           let description = await this.getTaskAsyncDesc(task);
           console.log("completed status " + completed);
-          tasks.push({name: task, completed: '' + completed, description: '' + description, time: '' + ('Days: '+(Math.floor(time/8640))+' Hours: '+(Math.floor(time/360)%24)+' Minutes: '+(Math.floor(time/60)%60)+' Seconds: '+(time%60))
+          tasks.push({name: task, completed: '' + completed, description: '' + description, 
+          time: '' + ('Days: '+(Math.floor(time/86400))+' Hours: '+(Math.floor(time/3600)%24)+' Minutes: '+(Math.floor(time/60)%60)+' Seconds: '+(time%60))
         }); 
           console.log(task);
       }
