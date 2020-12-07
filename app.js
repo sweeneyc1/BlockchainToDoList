@@ -9,11 +9,6 @@ class App extends Component {
     super(props)
     this.state = {
       tasks: [],
-      // tasks: [{name: 'Grocery Shop', description:'Stop & Shop', time: 2000, completed: false}, 
-      //         {name: 'Work', description:'1 - 8 PM: Barneys', time:15000, completed: false},
-      //         {name: 'Yoga', description:'Vinyasa Flow', time:80000, completed: false},
-      //         {name: 'Blockchain HW', description:'Assignment 3', time:160000, completed: false},
-      //         {name: 'Read', description:'Perks of Being a Wallflower', time:800000, completed: false}],
       newTaskName: '',
       newTaskDesc: '',
       newTaskTime: ''
@@ -42,12 +37,26 @@ class App extends Component {
       return task;
   }
 
+  async getTaskAsyncTime(taskName) {
+    let task = await listContract.methods.getTimeLeft(taskName).call(); 
+    return task;
+  }
+
+  async getTaskAsyncDesc(taskName) {
+    let task = await listContract.methods.getDesc(taskName).call(); 
+    return task;
+  }
+
   async loadTasksAsync() {
       let tasks = []
       let taskList = await listContract.methods.getTasks().call();
       for (let task of taskList) {
           let completed = await this.getTaskAsync(task);
-          tasks.push({name: task, completed: completed}); // name: task, completed:completed
+          let time = await this.getTaskAsyncTime(task);
+          let description = await this.getTaskAsyncDesc(task);
+          console.log("completed status " + completed);
+          tasks.push({name: task, completed: '' + completed, description: '' + description, time: '' + ('Days: '+(Math.floor(time/8640))+' Hours: '+(Math.floor(time/360)%24)+' Minutes: '+(Math.floor(time/60)%60)+' Seconds: '+(time%60))
+        }); 
           console.log(task);
       }
 
@@ -80,13 +89,14 @@ class App extends Component {
         console.log('err:', err, 'txHash:', txHash)
         if (!err) {
             this.getCom(task);
+            this.loadTasksAsync();
         }
       })
     })
   }
 
   handleAddingNewTask(task, desc, time) {
-    console.log(task, desc, time);
+    console.log("adding: " + task + desc +time);//changed
     web3.eth.getTransactionCount(defaultAccount.address, (err, txCount) => {
       
       const txObject = {
@@ -94,7 +104,7 @@ class App extends Component {
         gasLimit: web3.utils.toHex(468000), // Raise the gas limit to a much higher amount
         gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'wei')),
         to: listContract._address,
-        data: listContract.methods.addNewTask(task, desc, Number(time)).encodeABI()
+        data: listContract.methods.addNewTask(task, desc, time).encodeABI() //changed
       }
 
       const tx = NETWORK_TYPE === 'private' ? new Tx(txObject) : new Tx(txObject, { 'chain': 'ropsten' });
@@ -126,10 +136,11 @@ class App extends Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.newTaskName + this.state.newTaskDesc + this.state.newTaskTime);
-    
+    //alert('A name was submitted: ' + this.state.newTaskName + this.state.newTaskDesc + this.state.newTaskTime);
+    //alert('A name was submitted: ' + this.state.newTaskName);
     event.preventDefault();
     this.handleAddingNewTask(this.state.newTaskName, this.state.newTaskDesc, this.state.newTaskTime);
+    //this.handleAddingNewTask(this.state.newTaskName);
   }
 
   render() {
