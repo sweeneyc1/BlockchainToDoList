@@ -9,7 +9,7 @@ We developed a To-Do List App using a smart contract on the Ethereum platform, w
 2. User can change the status/completion of the task
 
 # Getting Started
-*Installation and Set Up:
+Installation and Set Up:
 
 1. Install NodeJS, Solidity, Web3js, Ganache
 2. Create a directory on Desktop and create another folder in that, called list.
@@ -23,7 +23,7 @@ We developed a To-Do List App using a smart contract on the Ethereum platform, w
 10. Uncomment lines 45-49 and 61-68 in truffle-config.js
 11. Copy and paste code for remaining JS files: config.js, App.js, ShowTasks.js
 
-*Run:
+Run:
 
 1. Pull up 2 command prompts.
 2. In one window run ganache through "ganache-cli"
