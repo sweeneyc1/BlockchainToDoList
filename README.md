@@ -35,3 +35,7 @@ Run:
 8. Open another command prompt and navigate to the appui folder and run "npm start". A window will pop up with the application. From there, you can add tasks and toggle the completed
 
 # Demo Video 
+
+# Contributors
+Cara Sweeney - Full-Stack Engineer, Scrum master
+Lute Barnett - Backend Developer 
