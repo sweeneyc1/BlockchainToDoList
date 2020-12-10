@@ -3,6 +3,8 @@ pragma experimental ABIEncoderV2;
 
 contract List {
     
+    
+    //task struct
     struct task{
         string name;
         string description;
@@ -23,6 +25,7 @@ contract List {
         taskList = _taskList;
     }
 
+    //adds new task, maps variables to the task's name string
     function addNewTask(string memory taskName, string memory taskDesc, uint taskTime) public {
     
         bytes32 _taskName = stringToBytes32(taskName);
@@ -32,24 +35,26 @@ contract List {
         completed[_taskName] = false;
         descList[_taskName] = taskDesc;
         timeList[_taskName] = taskTime;
-       // generalTasks.push(task(taskName,taskDesc, taskTime, false));
-        
     }
     
+    //returns array of task names
     function getTasks() public view returns (string[] memory){
         return taskList;
     }
     
+    //returns description for given task name
     function getDesc(string memory taskName) public view returns (string memory){
         bytes32 _taskName = stringToBytes32(taskName);
         return descList[_taskName];
     }
     
+    //returns time for given task name
     function getTimeLeft(string memory taskName) public view returns (uint){
         bytes32 _taskName = stringToBytes32(taskName);
         return timeList[_taskName];
     }
 
+    //toggles the completed boolean for given task name
     function toggleComplete(string memory taskName) public{
         //require(msg.sender==owner);
         
@@ -58,6 +63,7 @@ contract List {
         //general tasks
     }
 
+    //returns completed status of a given task
     function getCompleted(string memory taskName) public returns(bool){
         //require(msg.sender==owner);
         bytes32 _taskName = stringToBytes32(taskName);
