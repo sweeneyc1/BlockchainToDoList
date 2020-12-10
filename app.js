@@ -68,13 +68,13 @@ class App extends Component {
       await this.loadTasksAsync();
   }
 
-  handleComplete(task) { //make handle completed
+  handleComplete(task) {
     console.log("Handle Complete: " + task);
     
     web3.eth.getTransactionCount(defaultAccount.address, (err, txCount) => {
       const txObject = {
         nonce: web3.utils.toHex(txCount),
-        gasLimit: web3.utils.toHex(468000), // Raise the gas limit to a much higher amount
+        gasLimit: web3.utils.toHex(468000),
         gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'wei')),
         to: listContract._address,
         data: listContract.methods.toggleComplete(task).encodeABI()
@@ -97,15 +97,15 @@ class App extends Component {
   }
 
   handleAddingNewTask(task, desc, time) {
-    console.log("adding: " + task + desc +time);//changed
+    console.log("adding: " + task + desc +time);
     web3.eth.getTransactionCount(defaultAccount.address, (err, txCount) => {
       
       const txObject = {
         nonce: web3.utils.toHex(txCount),
-        gasLimit: web3.utils.toHex(468000), // Raise the gas limit to a much higher amount
+        gasLimit: web3.utils.toHex(468000), 
         gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'wei')),
         to: listContract._address,
-        data: listContract.methods.addNewTask(task, desc, time).encodeABI() //changed
+        data: listContract.methods.addNewTask(task, desc, time).encodeABI()
       }
 
       const tx = NETWORK_TYPE === 'private' ? new Tx(txObject) : new Tx(txObject, { 'chain': 'ropsten' });
@@ -125,7 +125,6 @@ class App extends Component {
 
   handleChangeTaskName(event) {
     this.setState({newTaskName: event.target.value});
-    //console.log(event.target.value);
   }
 
   handleChangeTaskDesc(event) {
@@ -137,11 +136,8 @@ class App extends Component {
   }
 
   handleSubmit(event) {
-    //alert('A name was submitted: ' + this.state.newTaskName + this.state.newTaskDesc + this.state.newTaskTime);
-    //alert('A name was submitted: ' + this.state.newTaskName);
     event.preventDefault();
     this.handleAddingNewTask(this.state.newTaskName, this.state.newTaskDesc, this.state.newTaskTime);
-    //this.handleAddingNewTask(this.state.newTaskName);
   }
 
   render() {
