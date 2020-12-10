@@ -37,5 +37,5 @@ Run:
 # Demo Video 
 
 # Contributors
-Cara Sweeney - Full-Stack Engineer, Scrum master
-Lute Barnett - Backend Developer 
+1. Cara Sweeney - Full-Stack Engineer, Scrum master
+2. Lute Barnett - Backend Developer 
